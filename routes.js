@@ -6,6 +6,13 @@ const productModel = mongoose.model('product')
 
 const passport = require('passport')
 
+function loggedIn(req, res, next) {
+    if (!req.user) {
+        return res.status(501).send("Unauthorized")
+    }
+    next();
+}
+
 router.route('/').get((req, res, next) => {
   return res.status(200).send("Api server works!")
 })
@@ -56,8 +63,8 @@ router.route('/logout').post((req, res, next) => {
     }
 })
 
-router.route('/products/:id?')
-    .post((req, res, next) => {
+router.route('/products/:id?'
+    .post(loggedIn, (req, res, next) => {
     const name = req.body.name
     const price = req.body.price || 0
     const quantity = req.body.quantity || 0
@@ -74,7 +81,7 @@ router.route('/products/:id?')
     }
     console.log('Added product')
 })
-    .get((req, res, next) => {
+    .get(loggedIn, (req, res, next) => {
         productModel.find((error, products) => {
             if (error) {
                 return res.status(400).send(error)
@@ -84,7 +91,7 @@ router.route('/products/:id?')
         })
         console.log('Queried products')
     })
-    .delete((req, res, next) => {
+    .delete(loggedIn, (req, res, next) => {
         const id = req.params.id
         if (id) {
             productModel.deleteOne({name: id}, (err) => {
@@ -95,6 +102,6 @@ router.route('/products/:id?')
             })
             console.log('Deleted product')
         }
-    })
+    }))
 
 module.exports = router
