@@ -46,7 +46,7 @@ router.route('/login').post((req, res, next) => {
     passport.authenticate('local', {}, (error, user, info) => {
         if (error) return  res.status(400).send(error)
 
-        req.logIn(user, (error) => {
+        req.login(user, (error) => {
             if (error) return res.status(500).send(error);
             console.log('Successful login')
             return res.status(200).send(user)

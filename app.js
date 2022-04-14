@@ -21,6 +21,19 @@ app.use(cors({
     origin: 'https://ng-prfshop.herokuapp.com',
     credentials: true
 }))
+passport.serializeUser((user, done) => {
+    if (!user) {
+        return done('No proper user was given', null)
+    }
+
+    return done(null, user);
+})
+passport.deserializeUser((user, done) => {
+    if (!user) {
+        return done("No user to log out")
+    }
+    return done(null, user);
+})
 app.use(session({secret: 'xUBIucJ1Iu4yCy3zScZ8', resave: true, saveUninitialized: true}))
 app.use(passport.initialize({}))
 app.use(passport.session({}))
@@ -37,14 +50,6 @@ passport.use('local', new LocalStrategy({usernameField: 'email'}, function (emai
         })
     })
 }));
-
-passport.serializeUser((user, done) => {
-    if (user) done(null, user);
-})
-
-passport.deserializeUser((id, done) => {
-    done(null, id);
-})
 
 app.use('/', require('./routes'))
 
