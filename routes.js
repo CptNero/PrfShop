@@ -7,7 +7,7 @@ const productModel = mongoose.model('product')
 const passport = require('passport')
 
 function loggedIn(req, res, next) {
-    if (!req.user) {
+    if (!req.isAuthenticated()) {
         return res.status(501).send("Unauthorized")
     }
     next();
