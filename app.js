@@ -48,6 +48,4 @@ passport.deserializeUser((id, done) => {
 
 app.use('/', require('./routes'))
 
-app.listen(3000, () => {
-    console.log('The server is running on port 3000.')
-})
+app.listen(process.env.PORT || 8080)

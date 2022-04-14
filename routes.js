@@ -6,6 +6,10 @@ const productModel = mongoose.model('product')
 
 const passport = require('passport')
 
+router.route('/').get((req, res, next) => {
+  return res.status(200).send("Api server works!")
+})
+
 router.route('/register').post((req, res, next) => {
     const email = req.body.email
     const password = req.body.password
