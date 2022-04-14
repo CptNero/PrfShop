@@ -18,10 +18,10 @@ db.PopulateModels()
 const userModel = mongoose.model('user')
 
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: 'https://ng-prfshop.herokuapp.com',
     credentials: true
 }))
-app.use(session({secret: 'asdasdds', resave: true, saveUninitialized: true}))
+app.use(session({secret: 'xUBIucJ1Iu4yCy3zScZ8', resave: true, saveUninitialized: true}))
 app.use(passport.initialize({}))
 app.use(passport.session({}))
 
