@@ -63,8 +63,9 @@ router.route('/logout').post((req, res, next) => {
     }
 })
 
-router.route('/products/:id?'
-    .post(loggedIn, (req, res, next) => {
+router.route('/products/:id?')
+    .all(loggedIn)
+    .post((req, res, next) => {
     const name = req.body.name
     const price = req.body.price || 0
     const quantity = req.body.quantity || 0
@@ -80,8 +81,8 @@ router.route('/products/:id?'
         }))
     }
     console.log('Added product')
-})
-    .get(loggedIn, (req, res, next) => {
+    })
+    .get((req, res, next) => {
         productModel.find((error, products) => {
             if (error) {
                 return res.status(400).send(error)
@@ -91,7 +92,7 @@ router.route('/products/:id?'
         })
         console.log('Queried products')
     })
-    .delete(loggedIn, (req, res, next) => {
+    .delete((req, res, next) => {
         const id = req.params.id
         if (id) {
             productModel.deleteOne({name: id}, (err) => {
@@ -102,6 +103,6 @@ router.route('/products/:id?'
             })
             console.log('Deleted product')
         }
-    }))
+    })
 
 module.exports = router
