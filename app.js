@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const db = new Database('mongodb+srv://CptNero:100%25MongoJuice@cluster0.zlbwt.mongodb.net/Cluster0?retryWrites=true&w=majority')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
+const cookieParser = require('cookie-parser')
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
@@ -18,7 +19,8 @@ db.PopulateModels()
 const userModel = mongoose.model('user')
 
 app.use(cors({
-    origin: 'https://ng-prfshop.herokuapp.com',
+    //origin: 'https://ng-prfshop.herokuapp.com',
+    origin: 'http://localhost:4200',
     credentials: true
 }))
 passport.serializeUser((user, done) => {
@@ -34,6 +36,7 @@ passport.deserializeUser((user, done) => {
     }
     return done(null, user);
 })
+app.use(cookieParser())
 app.use(session({secret: 'xUBIucJ1Iu4yCy3zScZ8', resave: true, saveUninitialized: true}))
 app.use(passport.initialize({}))
 app.use(passport.session({}))
