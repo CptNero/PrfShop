@@ -19,8 +19,8 @@ db.PopulateModels()
 const userModel = mongoose.model('user')
 
 app.use(cors({
-    //origin: 'https://ng-prfshop.herokuapp.com',
-    origin: 'http://localhost:4200',
+    origin: 'https://ng-prfshop.herokuapp.com',
+    //origin: 'http://localhost:4200',
     credentials: true
 }))
 passport.serializeUser((user, done) => {
