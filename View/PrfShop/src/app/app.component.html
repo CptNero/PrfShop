@@ -1,5 +1,0 @@
-<div *ngIf="this.authenticationService.isAuthenticated()">
-  <a>Hello: {{this.authenticationService.currentUserValue.email}}</a>
-  <button (click)=this.authenticationService.logout(this.authenticationService.currentUserValue)>Log out</button>
-</div>
-<router-outlet></router-outlet>
